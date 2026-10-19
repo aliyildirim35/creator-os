@@ -19,7 +19,7 @@ let db = load();
 function persist() { if (master) fs.writeFileSync(STORE,JSON.stringify(seal(db)),{mode:0o600}); }
 function json(res, status, body) { res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(body)); }
 function read(req) { return new Promise((ok,fail)=>{let s='';req.on('data',x=>s+=x);req.on('end',()=>{try{ok(JSON.parse(s||'{}'))}catch(e){fail(e)}})}); }
-function scopes() { return 'user.info.basic,user.info.stats,video.list,video.upload,video.publish'; }
+function scopes() { return 'user.info.basic,video.publish'; }
 
 const server=http.createServer(async(req,res)=>{
  const url=new URL(req.url,`http://localhost:${PORT}`);
